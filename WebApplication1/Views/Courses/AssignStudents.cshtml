@@ -1,0 +1,35 @@
+﻿@using WebApplication1.Models.Entities
+@{
+    var course = ViewBag.Course as Course;
+    var students = ViewBag.Students as List<User>;
+}
+
+<h2>Назначить студентов на курс: @course.Title</h2>
+@if (students.Count() != 0)
+{
+    <form asp-action="AssignStudents">
+        <input type="hidden" name="courseId" value="@course.CourseId" />
+        <div class="form-group">
+            @foreach (var student in students)
+            {
+                <div class="form-check">
+                    <input class="form-check-input"
+                           type="checkbox"
+                           name="studentIds"
+                           value="@student.UserId"
+                    @(course.StudentsCourse.Any(s => s.StudentId == student.UserId) ? "checked" : "")>
+                    <label class="form-check-label">@student.LastName @student.FirstName</label>
+                </div>
+            }
+        </div>
+        <a asp-controller="Courses" asp-action="Index"
+           class="btn btn-secondary me-md-2">
+            <i class="fas fa-arrow-left"></i> Назад
+        </a>
+        <button type="submit" class="btn btn-primary m-2">Сохранить</button>
+    </form>
+}
+else
+{
+    <h4>Студенты отсутствуют.</h4>
+}
