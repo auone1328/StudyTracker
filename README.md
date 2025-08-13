@@ -1,1 +1,2 @@
-# WebApplication1
+# StudyTracker
+Веб-приложение ASP.NET MVC
